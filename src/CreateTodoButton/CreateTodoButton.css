@@ -1,0 +1,27 @@
+.CreateTodoButton {
+    
+  
+      height: 56px;
+      background: #000000;
+      color: #FFFFFF;
+      border-radius: 0px;
+      padding: 12px 16px;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      align-items: center;
+      min-height: 56px;
+      cursor: pointer;
+      font-weight: 500;
+      font-family:  sans-serif;
+      line-height: 24px;
+      font-size: 18px;
+      box-sizing: border-box;
+      border-width: 0;
+      width: max-content;
+  }
+
+
+  
+  
+  
