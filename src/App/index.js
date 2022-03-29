@@ -4,34 +4,68 @@ import { AppUI } from "./AppUI";
 
 const defaultItem = [
   { text: "sing", completed: false },
-  { text: "sang", completed: true },
+  { text: "sang", completed: false },
   { text: "song", completed: true },
 ];
 
 function useLocalStorage(itemName, initialValue) {
-  const localStorageItem = localStorage.getItem(itemName);
-  let parsedItem;
+  const[error, setError] = React.useState(false);
+  const[loading, setLoading] = React.useState(true);
+  const [item, setItem] = React.useState(initialValue);
 
-  if (!localStorageItem) {
-    localStorage.setItem(itemName, JSON.stringify([]));
-    parsedItem = [];
-  } else {
-    parsedItem = JSON.parse(localStorageItem);
-  }
+React.useEffect(()=> {
+  setTimeout(()=> {
 
-  const [item, setItem] = React.useState(parsedItem);
+    try{
+
+      const localStorageItem = localStorage.getItem(itemName);
+      let parsedItem;
+    
+      if (!localStorageItem) {
+        localStorage.setItem(itemName, JSON.stringify([]));
+        parsedItem = []; 
+      } else {
+        parsedItem = JSON.parse(localStorageItem);
+      }
+    setItem(parsedItem)
+      setLoading(false);
+
+    } catch(error){
+      setError(error);
+    }
+
+    
+  }, 1000);
+});
+
+  
+  
 
   const saveItem = (newItem) => {
-    const stringifiedItem = JSON.stringify(newItem);
+try{
+  const stringifiedItem = JSON.stringify(newItem);
     localStorage.setItem(itemName, stringifiedItem);
     setItem(newItem);
+
+}catch(error){
+setError(error);
+}
+
+    
   };
 
-  return [item, saveItem];
+  return {item, saveItem, loading, error};
 }
 
 function App() {
-  const [todos, saveTodos] = useLocalStorage("TODOS_V1", [defaultItem]);
+
+
+  const {
+    item: todos,
+    saveItem: saveTodos,
+    loading, 
+    error
+  } = useLocalStorage("TODOS_V1", [defaultItem]);
   const [search, setSearch] = React.useState("");
   const completedTodos = todos.filter((todo) => !!todo.completed).length;
   const totalTodos = todos.length;
@@ -48,10 +82,10 @@ function App() {
     });
   }
 
-  const completeTodo = (text) => {
+  const completeTodos = (text) => {
     const todoIndex = todos.find((todo) => todo.text === text);
+    todoIndex.completed=!todoIndex.completed;
     const newTodo = [...todos];
-    newTodo[todoIndex].completed = true;
     saveTodos(newTodo);
   };
 
@@ -62,17 +96,20 @@ function App() {
     saveTodos(newTodo);
   };
 
+
   return (
     <AppUI
+    
+      loading={loading}
       totalTodos={totalTodos}
       completedTodos={completedTodos}
       search={search}
       setSearch={setSearch}
       searchedTodos={searchedTodos}
-      completeTodo={completeTodo}
+      completeTodos={completeTodos}
       deleteTodo={deleteTodo}
     />
   );
 }
 
-export default App;
+export default App; 
