@@ -1,16 +1,16 @@
 import React from 'react'
 import './CreateTodoButton.css'
 
-function CreateTodoButton() {
-    const onClickButton = (msg) => {
-        alert('nueva tarea');
+function CreateTodoButton(props) {
+    const onClickButton = () => {
+        props.setOpenModal(prevState => !prevState);
     };
 
 
     return (
         <button 
             className="CreateTodoButton"
-            onClick={()=>onClickButton('mi mensaje')}
+            onClick={onClickButton}
             >
             New task
                 
