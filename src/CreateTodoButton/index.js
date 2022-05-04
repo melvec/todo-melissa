@@ -12,7 +12,7 @@ function CreateTodoButton(props) {
             className="CreateTodoButton"
             onClick={onClickButton}
             >
-            New task
+            Create New ToDo
                 
         </button>
     )
