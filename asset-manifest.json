@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/todo-melissa/static/css/main.d0e25036.css",
+    "main.js": "/todo-melissa/static/js/main.fa86b4b7.js",
+    "index.html": "/todo-melissa/index.html",
+    "main.d0e25036.css.map": "/todo-melissa/static/css/main.d0e25036.css.map",
+    "main.fa86b4b7.js.map": "/todo-melissa/static/js/main.fa86b4b7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d0e25036.css",
+    "static/js/main.fa86b4b7.js"
+  ]
+}
